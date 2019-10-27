@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <!-- name that appears on the tab at the top of the browser tab -->
     <title>Recipe API Project</title>
-    <!-- style sheet for project -->
-    <link rel="stylesheet" href="css/style.css" />
+    <!-- style sheet for project <link rel="stylesheet" href="css/style.css"> -->
+
     <!-- font awesome -->
     <link
       rel="stylesheet"
@@ -14,7 +14,148 @@
   </head>
 
   <body ng-app="myApp">
-    <!-- Modules -->
-    <script></script>
+    <h1>Recipe API Project</h1>
+    <h2>Get Recipes</h2>
+    <form>
+      Page Number:<br />
+      <input type="text" name="pn" id="pn" /><br />
+      Results per page:<br />
+      <input type="text" name="rpp" id="rpp" />
+      <button type="button" id="Recipes">Submit</button>
+      <p1 id="results"></p1>
+    </form>
+    <h2>Create New Recipe</h2>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Listeners -->
+    <script>
+      const createRecipeEl = recipe => {
+        const recipeEl = document.createElement("div");
+        const nameEl = createHead3("Name: " + recipe.name);
+        const descriptionEl = createParagraph(
+          "Description: " + recipe.description
+        );
+        // const categories = createTable('Categories', recipe.categories);
+        const ratingEl = createParagraph("Rating: " + recipe.rating);
+        const ingredientsEl = createTable("Ingredients", recipe.ingredients);
+        const prepTimeEl = createParagraph("Prep Time: " + recipe.prepTime);
+        const cookTimeEl = createParagraph("Cook Time: " + recipe.cookTime);
+        const totalTimeEl = createParagraph("Total Time: " + recipe.totalTime);
+        const directionsEl = createTable("Directions", recipe.directions);
+        const nutritionFactEl = createParagraph("Nutrition per serving: ");
+        const caloriesEl = createParagraph("Calories: " + recipe.calories);
+        const fatEl = createParagraph("Fat: " + recipe.fat + "g");
+        const carbohydratesEl = createParagraph(
+          "Carbohydrates: " + recipe.carbohydrates + "g"
+        );
+        const proteinEl = createParagraph("Protein: " + recipe.protein + "g");
+        const cholesterolEl = createParagraph(
+          "Cholesterol: " + recipe.cholesterol + "mg"
+        );
+        const sodiumEl = createParagraph("Sodium: " + recipe.sodium + "mg");
+        const authorEl = createParagraph("Author: " + recipe.author);
+        const sourceEl = createParagraph("Source: " + recipe.source);
+        const array = [
+          nameEl,
+          descriptionEl,
+          authorEl,
+          sourceEl,
+          ratingEl,
+          ingredientsEl,
+          prepTimeEl,
+          cookTimeEl,
+          totalTimeEl,
+          directionsEl,
+          nutritionFactEl,
+          caloriesEl,
+          fatEl,
+          carbohydratesEl,
+          proteinEl,
+          cholesterolEl,
+          sodiumEl
+        ];
+        for (const item of array) {
+          recipeEl.append(item);
+        }
+        return recipeEl;
+      };
+      const create = tagType => {
+        return string => {
+          if (!string) return;
+          const element = document.createElement(tagType);
+          element.innerHTML = String(string);
+          return element;
+        };
+      };
+      const createParagraph = create("p");
+      const createHead3 = create("h3");
+      const createTable = (string, array) => {
+        const table = document.createElement("table");
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.innerHTML = string;
+        tr.append(td);
+        table.append(tr);
+        for (let i = 0; i < array.length; i++) {
+          const tr = document.createElement("tr");
+          const td = document.createElement("td");
+          td.innerHTML = String(i + 1) + ": " + array[i];
+          tr.append(td);
+          table.append(tr);
+        }
+        return table;
+      };
+      $(document).ready(() => {
+        const url = "http://localhost:3000/graphql";
+        $("#Recipes").click(() => {
+          const page = $("#pn").val();
+          console.log(page);
+          const limit = $("#rpp").val();
+          console.log(limit);
+          const body = {
+            query: `
+            query{
+              Recipes (page: 1 limit: 10){
+                name,
+                description,
+                categories,
+                rating,
+                ingredients,
+                prepTime,
+                cookTime,
+                totalTime,
+                directions,
+                calories,
+                fat,
+                carbohydrates,
+                protein,
+                cholesterol,
+                sodium,
+                author,
+                source
+              }
+            }`
+          };
+          $.ajax({
+            url,
+            method: "POST",
+            data: JSON.stringify(body),
+            contentType: "application/json; charset=utf-8", // this
+            dataType: "json",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            success: function(data) {
+              const resultsEl = $("#results");
+              for (const recipe of data.data.Recipes) {
+                const recipeEl = createRecipeEl(recipe);
+                resultsEl.append(recipeEl);
+              }
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

@@ -49,6 +49,8 @@ Recipe.prototype.serialize = function() {
 module.exports = knex => {
   return {
     create: require("./create")(knex, Recipe),
-    list: require("./list")(knex, Recipe)
+    list: require("./list")(knex, Recipe),
+    delete: require("./delete")(knex, Recipe),
+    mutate: require("./mutate")(knex, Recipe)
   };
 };
