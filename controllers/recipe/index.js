@@ -45,6 +45,7 @@ module.exports = models => {
     }
     type Query {
       Recipes(page: Int limit: Int): [Recipe]
+      Recipe(id: Int name: String): Recipe
     }
     type Mutation {
       createRecipe(input: RecipeInput): Recipe 
@@ -56,6 +57,9 @@ module.exports = models => {
   const root = {
     Recipes: request => {
       return models.recipes.list(request);
+    },
+    Recipe: request => {
+      return models.recipes.retrive(request);
     },
     createRecipe: request => {
       return models.recipes.create(request.input);

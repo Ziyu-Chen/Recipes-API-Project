@@ -51,6 +51,7 @@ module.exports = knex => {
     create: require("./create")(knex, Recipe),
     list: require("./list")(knex, Recipe),
     delete: require("./delete")(knex, Recipe),
-    mutate: require("./mutate")(knex, Recipe)
+    mutate: require("./mutate")(knex, Recipe),
+    retrive: require("./retrive")(knex, Recipe)
   };
 };

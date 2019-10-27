@@ -365,4 +365,32 @@ describe("#Server", () => {
       });
     });
   });
+  describe("Recipe", () => {
+    it("should return the recipe with the given name or id", async () => {
+      const body = {
+        query: `
+        query{
+					Recipe(name: "Whole Wheat Molasses Flat Bread") {
+						name
+						calories
+						fat
+						carbohydrates
+						protein
+						cholesterol
+						sodium
+					}
+				}`
+      };
+      const res = await request.post("/graphql").send(body);
+      JSON.parse(res.text).data.Recipe.should.include({
+        name: "Whole Wheat Molasses Flat Bread",
+        calories: 520,
+        fat: 520,
+        carbohydrates: 520,
+        protein: 520,
+        cholesterol: 520,
+        sodium: 520
+      });
+    });
+  });
 });
