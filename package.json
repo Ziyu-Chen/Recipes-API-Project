@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "node tests/initialize.js && mocha tests/test.js && yarn lint",
+    "test": "mocha tests/test.js && yarn lint",
     "lint": "eslint --fix .",
     "start": "node index.js",
     "migrate": "knex migrate:latest --knexfile models/knexfile.js",
@@ -19,6 +19,8 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
     "knex": "^0.15.2",
     "moment": "^2.22.2",
     "morgan": "^1.9.1",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "chai-http": "^4.3.0",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-config-problems": "^1.1.0",
