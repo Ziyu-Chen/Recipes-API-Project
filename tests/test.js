@@ -176,6 +176,39 @@ describe("#Server", () => {
         sodium: 35.0
       });
     });
+    it("should return a list of recipes under the given category", async () => {
+      const body = {
+        query: `
+        query{
+          Recipes (category: "Spice Cookies"){
+						id
+            name,
+						description,
+						categories,
+						rating,
+						ingredients,
+						prepTime,
+						cookTime,
+						totalTime,
+						directions,
+						calories,
+						fat,
+						carbohydrates,
+						protein,
+						cholesterol,
+						sodium,
+						author,
+						source
+          }
+        }`
+      };
+      const res = await request.post("/graphql").send(body);
+      JSON.parse(res.text).data.Recipes[0].should.include({
+        id: 1,
+        name: "Eggnog Cookies II",
+        source: "https://www.allrecipes.com/recipe/9500"
+      });
+    });
   });
   describe("createRecipe", () => {
     afterEach(() => {

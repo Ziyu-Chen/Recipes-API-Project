@@ -1,5 +1,27 @@
 module.exports = (knex, Recipe) => {
   return params => {
+    let category;
+    if (params) {
+      category = params.category;
+    }
+
+    if (category) {
+      return (
+        knex("recipes")
+          .select()
+          .then(recipes => {
+            recipes = recipes.map(recipe => new Recipe(recipe));
+            return recipes.filter(recipe =>
+              recipe.categories.includes(category)
+            );
+          })
+          // create a recipe model out of the plain database response
+          .catch(err => {
+            console.log("List Error!");
+            console.log(err);
+          })
+      );
+    }
     let page, limit;
     if (!params) {
       page = 1;

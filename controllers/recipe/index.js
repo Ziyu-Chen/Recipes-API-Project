@@ -44,7 +44,7 @@ module.exports = models => {
       source: String
     }
     type Query {
-      Recipes(page: Int limit: Int): [Recipe]
+      Recipes(page: Int limit: Int category: String): [Recipe]
       Recipe(id: Int name: String): Recipe
     }
     type Mutation {
