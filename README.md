@@ -47,7 +47,7 @@ query{
 
 }
 
-# Get the First Recipes
+# Get the First Ten Recipes
 query{
 
   Recipes{
@@ -150,7 +150,7 @@ mutation {
     description
 
   }
-  
+
 }
 
 It also returns the entire list of recipes in the database after deletion.
