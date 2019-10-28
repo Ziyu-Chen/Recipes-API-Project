@@ -36,7 +36,6 @@
     "eslint-config-problems": "^1.1.0",
     "eslint-plugin-prettier": "^3.0.0",
     "http-server": "^0.11.1",
-    "husky": "^1.1.2",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.12.1",
