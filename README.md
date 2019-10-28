@@ -15,86 +15,142 @@ knex, postgresql and graphql.
 
 # Get Recipe by Name
 query{
+
   Recipe(name: "Eggnog Cookies III"){
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 # Get Recipe by ID
 query{
+
   Recipe(id: 1){
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 # Get the First Recipes
 query{
+
   Recipes{
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 # Get Recipes with page number and limit
 query{
+
   Recipes(page: 3 limit: 20){
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 # Get Recipes by Category
 query{
+
   Recipes(category: "Spice Cookies"){
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 # Create a Recipe with Specified Input
 mutation {
+
   createRecipe(input: <input>) {
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 It also returns the newly created recipe.
 
 # Update a Recipe
 mutation {
-  updateRecipe(name: "Eggnog Cookies III" input: input){
+
+  updateRecipe(name: "Eggnog Cookies III" input: <input>){
+
     id
+
     name
+
     categories
+
     description
+
   }
+
 }
 
 It also returns the updated recipe.
 
 # Delete a Recipe by Name
 mutation {
+
   deleteRecipe(name: "Eggnog Cookies III") {
+
     id
+
     name
+
     categories
+
     description
+
   }
+  
 }
 
 It also returns the entire list of recipes in the database after deletion.
