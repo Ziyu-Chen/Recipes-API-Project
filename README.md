@@ -72,6 +72,7 @@ mutation {
     description
   }
 }
+
 It also returns the newly created recipe.
 
 # Update a Recipe
@@ -83,6 +84,7 @@ mutation {
     description
   }
 }
+
 It also returns the updated recipe.
 
 # Delete a Recipe by Name
@@ -94,4 +96,5 @@ mutation {
     description
   }
 }
+
 It also returns the entire list of recipes in the database after deletion.
